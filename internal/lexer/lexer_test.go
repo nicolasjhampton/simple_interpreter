@@ -60,7 +60,8 @@ func TestNextToken(t *testing.T) {
 		
 		let result = add(five, ten);
 		`
-
+		// This is the token stack we should end up with
+		// when we read the input
 		testSet := []Test{
 			{token.LET, "let"},
 			{token.IDENT, "five"},
@@ -98,7 +99,22 @@ func TestNextToken(t *testing.T) {
 			{token.IDENT, "ten"},
 			{token.RPAREN, ")"},
 			{token.SEMICOLON, ";"},
-			{token.EOF, ""}
+			{token.EOF, ""},
+		}
+	
+		lex := New(input)
+	
+		testLoop(lex, testSet, t)
+	})
+
+	t.Run("OneCharTokenSet", func(t *testing.T) {
+		input := `!-/*5;
+		5 < 10 > 5;
+		`
+		// This is the token stack we should end up with
+		// when we read the input
+		testSet := []Test{
+			
 		}
 	
 		lex := New(input)
