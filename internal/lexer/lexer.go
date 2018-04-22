@@ -75,20 +75,8 @@ func (l *Lexer) NextToken() token.Token {
 	switch l.ch {
 	case '=':
 		nextToken = newToken(token.ASSIGN, l.ch)
-	case ';':
-		nextToken = newToken(token.SEMICOLON, l.ch)
-	case '(':
-		nextToken = newToken(token.LPAREN, l.ch)
-	case ')':
-		nextToken = newToken(token.RPAREN, l.ch)
-	case ',':
-		nextToken = newToken(token.COMMA, l.ch)
 	case '+':
 		nextToken = newToken(token.PLUS, l.ch)
-	case '{':
-		nextToken = newToken(token.LBRACE, l.ch)
-	case '}':
-		nextToken = newToken(token.RBRACE, l.ch)
 	case '-':
 		nextToken = newToken(token.MINUS, l.ch)
 	case '!':
@@ -101,6 +89,18 @@ func (l *Lexer) NextToken() token.Token {
 		nextToken = newToken(token.LT, l.ch)
 	case '>':
 		nextToken = newToken(token.GT, l.ch)
+	case ',':
+		nextToken = newToken(token.COMMA, l.ch)
+	case ';':
+		nextToken = newToken(token.SEMICOLON, l.ch)
+	case '(':
+		nextToken = newToken(token.LPAREN, l.ch)
+	case ')':
+		nextToken = newToken(token.RPAREN, l.ch)
+	case '{':
+		nextToken = newToken(token.LBRACE, l.ch)
+	case '}':
+		nextToken = newToken(token.RBRACE, l.ch)
 	case 0:
 		nextToken.Type = token.EOF
 		nextToken.Literal = ""

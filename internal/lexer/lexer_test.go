@@ -114,7 +114,18 @@ func TestNextToken(t *testing.T) {
 		// This is the token stack we should end up with
 		// when we read the input
 		testSet := []Test{
-			
+			{token.BANG, "!"},
+			{token.MINUS, "-"},
+			{token.SLASH, "/"},
+			{token.ASTERISK, "*"},
+			{token.INT, "5"},
+			{token.SEMICOLON, ";"},
+			{token.INT, "5"},
+			{token.LT, "<"},
+			{token.INT, "10"},
+			{token.GT, ">"},
+			{token.INT, "5"},
+			{token.SEMICOLON, ";"},
 		}
 	
 		lex := New(input)
