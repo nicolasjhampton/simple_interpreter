@@ -24,7 +24,11 @@ const (
     SLASH    = "/"
 
     LT = "<"
-    GT = ">"
+	GT = ">"
+	
+	// Two char comparators
+	EQ     = "=="
+    NOT_EQ = "!="
 
 	// Delimiters
 	COMMA     = ","

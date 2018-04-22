@@ -5,8 +5,11 @@ import (
 	"testing"
 )
 
-// TestTable: Go uses TestTables
-// if NextToken took inputs, those would be in the table as well
+// TestTable: Go uses TestTables for unit testing
+// Basically they're []struct's that define different possible input and output for our unit
+// We'll define different senerios in each test, and run them through the test loop 
+// of if statements, which are basically different assertions
+// if the NextToken function took inputs, those would be in our TestTables as well
 type Test struct {
 	expectedType    token.TokenType
 	expectedLiteral string
@@ -160,6 +163,28 @@ func TestNextToken(t *testing.T) {
 			{token.FALSE, "false"},
 			{token.SEMICOLON, ";"},
 			{token.RBRACE, "}"},
+		}
+	
+		lex := New(input)
+	
+		testLoop(lex, testSet, t)
+	})
+
+	t.Run("TwoCharTokenSet", func(t *testing.T) {
+		input := `10 == 10;
+		10 != 9;
+		`
+		// This is the token stack we should end up with
+		// when we read the input
+		testSet := []Test{
+			{token.INT, "10"},
+			{token.EQ, "=="},
+			{token.INT, "10"},
+			{token.SEMICOLON, ";"},
+			{token.INT, "10"},
+			{token.NOT_EQ, "!="},
+			{token.INT, "9"},
+			{token.SEMICOLON, ";"},
 		}
 	
 		lex := New(input)

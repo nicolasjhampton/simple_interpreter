@@ -26,7 +26,7 @@ func New(input string) *Lexer {
 	return lex
 }
 
-// In our first interpreter attempt, we used Consume 
+// In our first interpreter attempt, we used Consume
 // to truncate the string to keep track of our position
 // This method avoids modifying the input string
 func (l *Lexer) readChar() {
@@ -37,6 +37,24 @@ func (l *Lexer) readChar() {
 	}
 	l.position = l.readPosition
 	l.readPosition += 1
+}
+
+func (l *Lexer) peekChar() byte {
+	if l.readPosition >= len(l.input) {
+		return 0
+	}
+	return l.input[l.readPosition]
+}
+
+func (l *Lexer) readTwoCharSymbol(second byte, tokenType token.TokenType) (*token.Token, bool) {
+	if l.peekChar() == second {
+		ch := l.ch // first char
+		l.readChar() // second char now l.ch
+		literal := string(ch) + string(l.ch)
+		twoCharToken := token.Token{ Type: tokenType, Literal: literal }
+		return &twoCharToken, true 
+	}
+	return nil, false
 }
 
 func (l *Lexer) readIdentifier() string {
@@ -74,13 +92,21 @@ func (l *Lexer) NextToken() token.Token {
 
 	switch l.ch {
 	case '=':
-		nextToken = newToken(token.ASSIGN, l.ch)
+		if twoCharToken, found := l.readTwoCharSymbol('=', token.EQ); found {
+			nextToken = *twoCharToken
+		} else {
+			nextToken = newToken(token.ASSIGN, l.ch)
+		}
+	case '!':
+		if twoCharToken, found := l.readTwoCharSymbol('=', token.NOT_EQ); found {
+			nextToken = *twoCharToken
+		} else {
+			nextToken = newToken(token.BANG, l.ch)
+		}
 	case '+':
 		nextToken = newToken(token.PLUS, l.ch)
 	case '-':
 		nextToken = newToken(token.MINUS, l.ch)
-	case '!':
-		nextToken = newToken(token.BANG, l.ch)
 	case '*':
 		nextToken = newToken(token.ASTERISK, l.ch)
 	case '/':
@@ -108,7 +134,7 @@ func (l *Lexer) NextToken() token.Token {
 		// Makes since that identifiers should be checked after
 		// all known keywords and operators in the language
 		if isLetter(l.ch) {
-			nextToken.Literal = l.readIdentifier() // Works like readChar, so we'll return here
+			nextToken.Literal = l.readIdentifier()                // Works like readChar, so we'll return here
 			nextToken.Type = token.LookupIdent(nextToken.Literal) // checks keyword types first. If none, returns IDENT
 			return nextToken
 		}
