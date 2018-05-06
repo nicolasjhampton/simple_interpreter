@@ -16,19 +16,19 @@ const (
 	INT   = "INT"   // "1234567..."
 
 	// Operators
-	ASSIGN = "="
-	PLUS   = "+"
+	ASSIGN   = "="
+	PLUS     = "+"
 	MINUS    = "-"
-    BANG     = "!"
-    ASTERISK = "*"
-    SLASH    = "/"
+	BANG     = "!"
+	ASTERISK = "*"
+	SLASH    = "/"
 
-    LT = "<"
+	LT = "<"
 	GT = ">"
-	
+
 	// Two char comparators
 	EQ     = "=="
-    NOT_EQ = "!="
+	NOT_EQ = "!="
 
 	// Delimiters
 	COMMA     = ","
@@ -42,11 +42,11 @@ const (
 	// Keywords
 	FUNCTION = "FUNCTION"
 	LET      = "LET"
-	TRUE = "TRUE"
-	FALSE = "FALSE"
-	IF = "IF"
-	ELSE = "ELSE"
-	RETURN = "RETURN"
+	TRUE     = "TRUE"
+	FALSE    = "FALSE"
+	IF       = "IF"
+	ELSE     = "ELSE"
+	RETURN   = "RETURN"
 )
 
 // Maps the text in the source with the keyword
@@ -54,12 +54,12 @@ const (
 // use this to map abbrivated source to longer
 // unabbriviated concepts, like "fn" to "FUNCTION"
 var keywords = map[string]TokenType{
-	"fn": FUNCTION,
-	"let": LET,
-	"true": TRUE,
-	"false": FALSE,
-	"if": IF,
-	"else": ELSE,
+	"fn":     FUNCTION,
+	"let":    LET,
+	"true":   TRUE,
+	"false":  FALSE,
+	"if":     IF,
+	"else":   ELSE,
 	"return": RETURN,
 }
 
