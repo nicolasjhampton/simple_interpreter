@@ -66,23 +66,27 @@ func (p *Parser) parseStatement() ast.Statement {
 }
 
 func (p *Parser) parseLetStatement() *ast.LetStatement {
-	stmt := &ast.LetStatement{ Token: p.curToken }
+	stmt := &ast.LetStatement{Token: p.curToken}
 
+	// let y
 	if !p.expectPeek(token.IDENT) {
 		return nil
 	}
 
-	stmt.Name = &ast.Identifier{ 
-		Token: p.curToken, 
-		Value: p.curToken.Literal, 
+	// y
+	stmt.Name = &ast.Identifier{
+		Token: p.curToken,
+		Value: p.curToken.Literal,
 	}
 
+	// let y =
 	if !p.expectPeek(token.ASSIGN) {
 		return nil
 	}
 
+	// let y = ;  <- missing expression
 	// TODO: We're skipping the expressions until we
-  // encounter a semicolon
+	// encounter a semicolon
 	for !p.curTokenIs(token.SEMICOLON) {
 		p.nextToken()
 	}
