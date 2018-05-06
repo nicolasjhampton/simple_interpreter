@@ -1,9 +1,9 @@
 package parser
 
 import (
-	"testing"
 	"github.com/nicolasjhampton/simple_interpreter/internal/ast"
 	"github.com/nicolasjhampton/simple_interpreter/internal/lexer"
+	"testing"
 )
 
 func TestLetStatements(t *testing.T) {
